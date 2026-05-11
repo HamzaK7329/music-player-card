@@ -148,9 +148,13 @@ export default function MusicPlayerCard() {
             </button>
 
             <button 
-            className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center shadow-lg cursor-pointer " 
+            className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center shadow-lg cursor-pointer
+            transition-all duration-300 active:scale-90 hover:scale-105 " 
             onClick={togglePlay}
-            > {isPlaying ? "⏸︎" : "▶︎"}
+            > <span
+                className="inline-block transition-all duration-300 animate-[pop_0.3s_ease] "
+                >
+                {isPlaying ? "⏸︎" : "▶︎"}</span>
             </button>
 
             <button
