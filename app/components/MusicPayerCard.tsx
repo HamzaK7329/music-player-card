@@ -15,6 +15,12 @@ const songs: Song[] = [
         artist: "Drake",
         cover: "/covers/DrakeWhichOneCover.png",
         audio:"/songs/DrakeWhichOneSong.mp3"
+    },
+    {
+        title: "Passionfruit",
+        artist: "Drake",
+        cover: "/covers/DrakePassionfruitCover.png",
+        audio:"/songs/DrakePassionfruitSong.mp3"
     }
 ]
 
