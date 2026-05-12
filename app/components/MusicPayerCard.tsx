@@ -1,12 +1,14 @@
 "use client"
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import LyricsCard from "./LyricsCard";
 
 type Song = {
     title: string
     artist: string
     cover: string
     audio: string
+    lyricsFile: string | null
 }
 
 const songs: Song[] = [
@@ -14,13 +16,15 @@ const songs: Song[] = [
         title: "Which One",
         artist: "Drake",
         cover: "/covers/DrakeWhichOneCover.png",
-        audio:"/songs/DrakeWhichOneSong.mp3"
+        audio:"/songs/DrakeWhichOneSong.mp3",
+        lyricsFile: null
     },
     {
         title: "Passionfruit",
         artist: "Drake",
         cover: "/covers/DrakePassionfruitCover.png",
-        audio:"/songs/DrakePassionfruitSong.mp3"
+        audio:"/songs/DrakePassionfruitSong.mp3",
+        lyricsFile: "/lyrics/PassionfruitLyrics.json"
     }
 ]
 
@@ -31,6 +35,8 @@ export default function MusicPlayerCard() {
     const [isPlaying, setIsPLaying] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
+    const [lyrics, setLyrics] = useState<any[] | null>(null);
+    const [showLyrics, setShowLyrics] = useState<boolean>(false);
 
     const song = songs[currentSong];
     
@@ -94,10 +100,36 @@ export default function MusicPlayerCard() {
         return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
     }
 
+    useEffect(() => {
+        const loadLyrics = async () => {
+            if (!song.lyricsFile) {
+                setLyrics(null)
+                return
+            }
+
+            try {
+                const res = await fetch(song.lyricsFile)
+                const data = await res.json()
+                setLyrics(data.entries)
+            } catch (err) {
+                console.error("Lyrics not found", err)
+                setLyrics(null);
+            }
+        }
+        loadLyrics()
+    }, [currentSong])
+
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="w-72.5 rounded-[22px] overflow-hidden bg-[#ffffff] shadow-2xl " >
+    <div className="relative min-h-screen bg-white flex items-center justify-center">
+
+        <LyricsCard
+            show={showLyrics}
+            currentTime={progress}
+            lyrics={lyrics}
+        />
+
+      <div className="relative z-10 w-72.5 rounded-[22px] overflow-hidden bg-[#ffffff] shadow-2xl " >
 
         {/* Music Cover */}
         <div className="relative h-57.5 " >
@@ -162,7 +194,10 @@ export default function MusicPlayerCard() {
                 >
                 {isPlaying ? "⏸︎" : "▶︎"}</span>
             </button>
-
+            {/* Lyrics button is temporary need to change it soon and put it someplace else */}
+            <button onClick={() => setShowLyrics(!showLyrics)}>
+                Lyrics
+            </button>
             <button
                 className="text-lg cursor-pointer"
                 onClick={nextSong}
