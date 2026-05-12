@@ -59,7 +59,7 @@ export default function MusicPlayerCard() {
     }
 
     const prevSong = () => {
-    const prev = (currentSong - 1) % songs.length
+    const prev = (currentSong - 1 + songs.length) % songs.length
     setCurrentSong(prev)
     setProgress(0)
 
