@@ -133,7 +133,7 @@ export default function MusicPlayerCard() {
     
             <button
                 onClick={() => setShowLyrics(!showLyrics)}
-                className="absolute top-4 left-4 z-20 rounded-full bg-black/80 px-3 py-1 text-xs font-medium text-white hover:bg-black"
+                className="absolute top-4 left-4 cursor-pointer z-20 rounded-full bg-black/80 px-3 py-1 text-xs font-medium text-white hover:bg-black"
             >
                 Lyrics
             </button>
@@ -153,7 +153,7 @@ export default function MusicPlayerCard() {
 
         {/* Music Info */}
         <div className="px-5 pt-4 flex items-center justify-between " >
-            <span className="text-sm text-black" >⬅︎</span>
+            <span className="text-sm text-black/50" >⬅︎</span>
 
             <div className="text-center">
                 <h2 className="text-[16px] font-semibold text-black ">
@@ -163,7 +163,7 @@ export default function MusicPlayerCard() {
                     {song.artist}
                 </p>
             </div>
-            <span className="text-sm text-black " >❤︎</span>
+            <span className="text-sm text-black/50 " >❤︎</span>
         </div>
 
         {/* Progress */}
@@ -186,7 +186,7 @@ export default function MusicPlayerCard() {
         {/* Music Controls */}
         <div className="flex items-center justify-center gap-6 py-6 " >
             <button
-                className="text-lg cursor-pointer"
+                className="text-lg text-black/50 cursor-pointer"
                 onClick={prevSong}
             >
                 ⏮︎
@@ -203,7 +203,7 @@ export default function MusicPlayerCard() {
             </button>
             
             <button
-                className="text-lg cursor-pointer"
+                className="text-lg text-black/50 cursor-pointer"
                 onClick={nextSong}
             >
                 ⏭︎
