@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useRef } from "react";
+
 export default function LyricsCard({
     show,
     currentTime,
@@ -30,6 +32,17 @@ export default function LyricsCard({
         )
     })
 
+    const activeLyricRef = useRef<HTMLParagraphElement | null>(null);
+
+    useEffect(() => {
+        if (activeLyricRef.current) {
+            activeLyricRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            })
+        }
+    }, [activeIndex])
+
     return (
         <div 
         className={`absolute z-0 w-72.5 h-107.5 rounded-[22px] bg-[#111] shadow-2xl transition-all duration-700
@@ -43,6 +56,7 @@ export default function LyricsCard({
                     {lyrics.map((line, index) => (
                         <p
                         key={line.timestamp}
+                        ref={index === activeIndex ? activeLyricRef : null}
                         className={`transition-all duration-300 ${index === activeIndex ? "text-white text-[18px] font-semibold" :
                             "text-white/40 text-[15px]"
                         }`}
