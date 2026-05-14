@@ -130,6 +130,13 @@ export default function MusicPlayerCard() {
         />
 
       <div className="relative z-10 w-72.5 rounded-[22px] overflow-hidden bg-[#ffffff] shadow-2xl " >
+    
+            <button
+                onClick={() => setShowLyrics(!showLyrics)}
+                className="absolute top-4 left-4 z-20 rounded-full bg-black/80 px-3 py-1 text-xs font-medium text-white hover:bg-black"
+            >
+                Lyrics
+            </button>
 
         {/* Music Cover */}
         <div className="relative h-57.5 " >
@@ -194,10 +201,7 @@ export default function MusicPlayerCard() {
                 >
                 {isPlaying ? "⏸︎" : "▶︎"}</span>
             </button>
-            {/* Lyrics button is temporary need to change it soon and put it someplace else */}
-            <button onClick={() => setShowLyrics(!showLyrics)}>
-                Lyrics
-            </button>
+            
             <button
                 className="text-lg cursor-pointer"
                 onClick={nextSong}
